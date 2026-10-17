@@ -1,0 +1,11 @@
+{
+  "name": "shadow12-online",
+  "version": "1.0.0",
+  "description": "SHADOW 12 multiplayer mafia game starter",
+  "main": "server.js",
+  "scripts": {"start": "node server.js"},
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}

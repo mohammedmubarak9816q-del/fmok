@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHADOW 12 | Mafia Online</title>
+<style>
+:root{--bg:#070910;--panel:rgba(15,19,32,.88);--line:rgba(255,255,255,.1);--red:#ff3155;--red2:#a80e2c;--muted:#aab2c6;--gold:#f6c76b}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:#f7f8fc;font-family:Arial,Tahoma,sans-serif;background:#070910;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 12% 18%,rgba(135,10,40,.32),transparent 34%),radial-gradient(ellipse at 85% 25%,rgba(35,52,112,.30),transparent 32%),linear-gradient(135deg,#070910,#0c1020 52%,#090a12)}
+body:after{content:"";position:fixed;inset:0;z-index:-1;opacity:.18;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,black,transparent 90%)}
+header{position:sticky;top:0;z-index:10;background:rgba(7,9,16,.84);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;padding:15px 22px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:2px;font-size:22px}
+.brandmark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#ff3155,#790c25);box-shadow:0 8px 30px #ff31552b;font-size:23px}
+.brand span{color:var(--red)}
+.navright{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px}
+.pill{border:1px solid var(--line);background:#ffffff08;border-radius:999px;padding:8px 12px}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 22px 50px}
+.hero{position:relative;overflow:hidden;min-height:280px;border:1px solid #ffffff17;border-radius:25px;padding:34px;background:linear-gradient(105deg,rgba(9,11,20,.98),rgba(30,10,22,.86) 55%,rgba(14,23,46,.86));box-shadow:0 24px 80px #0005}
+.hero:before{content:"12";position:absolute;left:4%;top:-54px;font-size:300px;font-weight:900;line-height:1;color:#ffffff07;pointer-events:none}
+.eyebrow{color:#ff8296;font-size:12px;letter-spacing:3px;font-weight:bold}
+.hero h1{font-size:clamp(38px,6vw,68px);line-height:1;margin:14px 0 12px;letter-spacing:2px}
+.hero h1 span{color:var(--red)}
+.hero p{color:#c1c6d4;max-width:550px;line-height:1.8;margin:0 0 20px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+button{font:inherit;font-weight:700;border:0;border-radius:11px;padding:12px 16px;cursor:pointer;color:white;background:linear-gradient(135deg,#ff3155,#bf1537);box-shadow:0 7px 22px #ff31551c;transition:transform .15s,filter .15s}
+button:hover{filter:brightness(1.12);transform:translateY(-1px)}
+button:disabled{opacity:.4;cursor:not-allowed;transform:none}
+button.secondary{background:#ffffff0b;border:1px solid #ffffff1b;box-shadow:none}
+button.gold{background:linear-gradient(135deg,#f6c76b,#b77927);color:#1b1110}
+button.danger{background:#39121c;border:1px solid #79233a;box-shadow:none}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:18px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:21px;box-shadow:0 14px 42px #0002;backdrop-filter:blur(12px);min-width:0}
+.panelhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+.panelhead h2{font-size:17px;margin:0}
+.sub{color:var(--muted);font-size:13px;line-height:1.6}
+input,select{width:100%;padding:13px 14px;border-radius:11px;border:1px solid #ffffff1c;background:#080b14;color:white;font-size:14px;outline:none;margin:5px 0 10px}
+input:focus,select:focus{border-color:#ff3155}
+label{font-size:13px;color:#c5cada}
+.profiletop{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+.avatar{width:56px;height:56px;border-radius:17px;display:grid;place-items:center;font-size:27px;background:linear-gradient(145deg,#262c43,#171a2b);border:1px solid #ffffff18}
+.profiletop h3{margin:0 0 6px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.stat{background:#ffffff06;border:1px solid #ffffff0c;padding:13px;border-radius:13px}
+.stat strong{display:block;font-size:23px;color:#ff6b83;margin-bottom:5px}
+.stat span{font-size:12px;color:var(--muted)}
+.xprow{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:17px}
+.progress{height:8px;background:#ffffff12;border-radius:99px;overflow:hidden;margin-top:8px}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#ff3155,#ff9b75);transition:width .25s}
+.roomlist{display:grid;gap:10px}
+.room{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;border:1px solid #ffffff12;background:#ffffff05;border-radius:13px}
+.roomname{font-weight:bold;margin-bottom:5px}
+.tag{display:inline-block;font-size:11px;padding:5px 8px;border-radius:999px;background:#17382d;color:#89edb9;margin-inline-start:5px}
+.tag.private{background:#33271a;color:#f6d38c}
+.room small{color:var(--muted)}
+.room button{padding:9px 12px;font-size:12px;white-space:nowrap}
+.rolegrid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.role{padding:14px 8px;text-align:center;border-radius:13px;background:#ffffff06;border:1px solid #ffffff0e}
+.role .emoji{font-size:24px}
+.role div:last-child{font-size:12px;margin-top:8px}
+.hidden{display:none!important}
+#toast{position:fixed;bottom:20px;left:20px;z-index:50;background:#1b2030;border:1px solid #ffffff20;border-radius:12px;padding:13px 17px;max-width:min(90vw,400px);box-shadow:0 15px 45px #0008}
+.players{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px;margin:14px 0}
+.player{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px;border:1px solid #ffffff12;background:#ffffff07;border-radius:11px;font-size:13px}
+.player small{color:var(--muted)}
+.roomtools{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.gamebox{margin-top:16px;padding:17px;border:1px solid #ff31554d;border-radius:14px;background:linear-gradient(135deg,#32111d77,#0c1220)}
+#roleText{font-size:23px;font-weight:bold;color:#ff8ba0}
+.votegrid{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.votegrid button{font-size:12px}
+footer{text-align:center;color:#717b90;padding:20px;font-size:12px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.hero{padding:26px}.rolegrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.nav{padding:12px}.navright .pill:first-child{display:none}.wrap{padding:16px 12px 35px}.hero{padding:23px 19px}.hero:before{font-size:210px}.stats{grid-template-columns:1fr}.rolegrid{grid-template-columns:repeat(2,1fr)}.panel{padding:16px}.room{align-items:flex-start}.room button{padding:9px}}
+</style>
+</head>
+<body>
+<header><div class="nav">
+  <div class="brand"><div class="brandmark">♠</div><div>SHADOW <span>12</span></div></div>
+  <div class="navright"><div class="pill" id="connection">● غير متصل</div><div class="pill">MAFIA ONLINE</div></div>
+</div></header>
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">SOCIAL DEDUCTION • MULTIPLAYER</div>
+    <h1>TRUST NO <span>ONE.</span></h1>
+    <p>ليلة واحدة تغيّر كل شيء. اجمع ربعك، اكتشف المافيا، ولا تكشف هويتك قبل الوقت.</p>
+    <div class="actions"><button onclick="document.getElementById('createPanel').scrollIntoView({behavior:'smooth'})">ابدأ اللعب ↙</button><button class="secondary" onclick="toast('أضف اسمك أولاً ثم أنشئ غرفة أو أدخل كودها.')">شلون ألعب؟</button></div>
+  </section>
+
+  <div class="grid">
+    <div>
+      <section class="panel">
+        <div class="panelhead"><h2>◈ ملف اللاعب</h2><span class="tag">PLAYER</span></div>
+        <div class="profiletop"><div class="avatar">🕶️</div><div style="flex:1"><label for="username">اسم اللاعب</label><input id="username" maxlength="18" placeholder="اكتب اسمك داخل اللعبة"></div></div>
+        <div class="stats">
+          <div class="stat"><strong id="level">1</strong><span>المستوى</span></div>
+          <div class="stat"><strong id="xp">0</strong><span>XP الخبرة</span></div>
+          <div class="stat"><strong id="coins">100</strong><span>العملات</span></div>
+        </div>
+        <div class="xprow"><span>التقدم للمستوى التالي</span><span id="xpLabel">0 / 100 XP</span></div>
+        <div class="progress"><div class="bar" id="xpbar"></div></div>
+      </section>
+
+      <section class="panel" id="createPanel">
+        <div class="panelhead"><h2>◈ إنشاء غرفة</h2><span class="tag private">MAX 12</span></div>
+        <label for="roomName">اسم الغرفة</label><input id="roomName" maxlength="24" placeholder="مثال: قروب الربع">
+        <div class="actions"><button onclick="createRoom(true)">＋ سيرفر عام</button><button class="secondary" onclick="createRoom(false)">🔒 سيرفر خاص</button></div>
+        <label for="joinCode">كود الغرفة الخاصة</label><input id="joinCode" maxlength="8" placeholder="اكتب كود الدعوة">
+        <button class="secondary" onclick="joinByCode()">دخول بالكود</button>
+        <p class="sub">ملاحظة: لربط أجهزة مختلفة شغّل السيرفر المرفق واتصل بعنوانه. الغرف لا تصبح عامة على الإنترنت إلا بعد نشر السيرفر.</p>
+      </section>
+
+      <section class="panel">
+        <div class="panelhead"><h2>◈ السيرفرات العامة</h2><span class="tag">LIVE LIST</span></div>
+        <div class="roomlist" id="rooms"><p class="sub">جاري الاتصال بالسيرفر…</p></div>
+      </section>
+    </div>
+
+    <div>
+      <section class="panel">
+        <div class="panelhead"><h2>◈ غرفة اللعب</h2><span class="tag" id="roomState">LOBBY</span></div>
+        <div id="noRoom"><p class="sub">أنشئ غرفة أو ادخل غرفة موجودة عشان تظهر تفاصيل اللاعبين هنا.</p></div>
+        <div id="roomView" class="hidden">
+          <div id="roomInfo" class="sub"></div>
+          <p>المشاركون <strong id="playerCount">0</strong> / 12</p>
+          <div class="players" id="players"></div>
+          <div class="roomtools">
+            <button id="readyBtn" onclick="toggleReady()">أنا جاهز ✓</button>
+            <button class="secondary" onclick="addBot()">🤖 إضافة بوت</button>
+            <button class="secondary" onclick="removeBot()">حذف بوت</button>
+            <button id="startBtn" class="gold" onclick="startGame()">👑 ابدأ الجولة</button>
+            <button class="danger" onclick="leaveRoom()">مغادرة</button>
+          </div>
+          <div id="gameBox" class="gamebox hidden">
+            <div class="sub">هويتك السرية</div><div id="roleText">—</div>
+            <p id="gameMessage" class="sub">اتبع دورك خلال الجولة.</p>
+            <div class="sub">التصويت</div><div id="voteOptions" class="votegrid"></div>
+            <button class="secondary" onclick="finishRound()">إنهاء الجولة التجريبية</button>
+          </div>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panelhead"><h2>◈ أدوار اللعبة</h2><span class="tag">ROLES</span></div>
+        <div class="rolegrid">
+          <div class="role"><div class="emoji">🔪</div><div>المافيا</div></div>
+          <div class="role"><div class="emoji">👮</div><div>الشرطي</div></div>
+          <div class="role"><div class="emoji">🕵️</div><div>المحقق</div></div>
+          <div class="role"><div class="emoji">🩺</div><div>الدكتور</div></div>
+          <div class="role"><div class="emoji">👤</div><div>المواطن</div></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+<footer>SHADOW 12 • COMMUNITY GAME • 2026</footer>
+<div id="toast" class="hidden"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+let socket = null, currentRoom = null, myId = null, myRole = null;
+let profile = JSON.parse(localStorage.getItem('shadow12-profile') || '{"level":1,"xp":0,"coins":100}');
+function saveProfile(){localStorage.setItem('shadow12-profile',JSON.stringify(profile));renderProfile()}
+function renderProfile(){
+ $('level').textContent=profile.level; $('xp').textContent=profile.xp; $('coins').textContent=profile.coins;
+ $('xpbar').style.width=profile.xp+'%'; $('xpLabel').textContent=profile.xp+' / 100 XP';
+}
+function toast(text){$('toast').textContent=text;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),3200)}
+function name(){return $('username').value.trim()}
+function needName(){if(!name()){toast('اكتب اسم اللاعب أولاً.');$('username').focus();return false}return true}
+function send(event,data){if(!socket||!socket.connected){toast('السيرفر غير متصل. شغّل server.js أولاً.');return}socket.emit(event,data)}
+function createRoom(isPublic){if(!needName())return;send('room:create',{name:name(),roomName:$('roomName').value.trim(),isPublic})}
+function joinByCode(){if(!needName())return;send('room:join',{name:name(),code:$('joinCode').value.trim().toUpperCase()})}
+function toggleReady(){send('room:ready',{readyBtn:true})}
+function addBot(){send('room:addBot',{})}
+function removeBot(){send('room:removeBot',{})}
+function startGame(){send('game:start',{})}
+function leaveRoom(){send('room:leave',{})}
+function finishRound(){send('game:finish',{})}
+function vote(targetId){send('game:vote',{targetId})}
+function drawRooms(rooms){
+ const box=$('rooms');box.innerHTML='';
+ if(!rooms.length){box.innerHTML='<p class="sub">ما فيه غرف عامة مفتوحة حالياً.</p>';return}
+ rooms.forEach(r=>{
+  const div=document.createElement('div');div.className='room';
+  const left=document.createElement('div');
+  const title=document.createElement('div');title.className='roomname';title.textContent=r.roomName||'غرفة عامة';
+  const small=document.createElement('small');small.textContent=`${r.players.length}/12 لاعبين • ${r.started?'بدأت الجولة':'في اللوبي'}`;
+  left.append(title,small);
+  const btn=document.createElement('button');btn.textContent='دخول';btn.disabled=r.started||r.players.length>=12;btn.onclick=()=>{if(needName())send('room:join',{name:name(),code:r.code})};
+  div.append(left,btn);box.append(div);
+ });
+}
+function renderRoom(room){
+ currentRoom=room;
+ $('noRoom').classList.toggle('hidden',!!room);$('roomView').classList.toggle('hidden',!room);
+ if(!room)return;
+ $('roomInfo').textContent=`${room.roomName} • كود الدعوة: ${room.code} • الهوست: ${room.hostName}`;
+ $('joinCode').value=room.code;$('playerCount').textContent=room.players.length;
+ $('roomState').textContent=room.started?'IN GAME':'LOBBY';
+ const list=$('players');list.innerHTML='';
+ room.players.forEach(p=>{
+  const d=document.createElement('div');d.className='player';
+  const n=document.createElement('span');n.textContent=(p.isBot?'🤖 ':'👤 ')+p.name+(p.id===room.hostId?' 👑':'');
+  const s=document.createElement('small');s.textContent=p.ready?'جاهز ✓':'ينتظر';
+  d.append(n,s);list.append(d);
+ });
+ $('readyBtn').disabled=room.started;
+ $('startBtn').disabled=room.started;
+ $('gameBox').classList.toggle('hidden',!room.started);
+ if(room.started){
+  $('roleText').textContent=myRole||'مشارك';
+  $('gameMessage').textContent='الجولة بدأت. صوّت على لاعب لإقصائه في نهاية التصويت.';
+  const opts=$('voteOptions');opts.innerHTML='';
+  room.players.filter(p=>p.id!==myId&&!p.isBot).forEach(p=>{
+   const b=document.createElement('button');b.className='secondary';b.textContent='صوّت: '+p.name;b.onclick=()=>vote(p.id);opts.append(b);
+  });
+ }
+}
+function connect(){
+ if(typeof io==='undefined'){$('connection').textContent='● افتح عبر السيرفر';toast('لا تفتح index.html مباشرة. شغّل npm start ثم افتح localhost:3000.');return}
+ socket=io();
+ socket.on('connect',()=>{$('connection').textContent='● متصل بالسيرفر';myId=socket.id;send('rooms:list',{})});
+ socket.on('disconnect',()=>{$('connection').textContent='● غير متصل'});
+ socket.on('rooms:list',drawRooms);
+ socket.on('room:update',renderRoom);
+ socket.on('room:left',()=>{currentRoom=null;myRole=null;renderRoom(null);send('rooms:list',{});toast('غادرت الغرفة')});
+ socket.on('game:role',data=>{myRole=data.role; if(currentRoom)renderRoom(currentRoom)});
+ socket.on('game:message',d=>toast(d.message));
+ socket.on('game:finished',d=>{
+  toast(d.message||'انتهت الجولة');
+  profile.xp+=25;profile.coins+=10;
+  while(profile.xp>=100){profile.xp-=100;profile.level++;profile.coins+=50}
+  saveProfile();myRole=null;
+ });
+ socket.on('error:message',d=>toast(d.message||'حدث خطأ'));
+}
+renderProfile();connect();
+</script>
+</body>
+</html>
