@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لعبة الديوانية</title>
+<style>
+body {
+  background:#101827;
+  color:white;
+  font-family:Tahoma,Arial;
+  text-align:center;
+  padding:20px;
+}
+.box {
+  background:#1e293b;
+  padding:22px;
+  border-radius:20px;
+  max-width:500px;
+  margin:20px auto;
+}
+input,button {
+  padding:13px;
+  margin:6px;
+  border:0;
+  border-radius:10px;
+  font-size:16px;
+}
+input {width:65%;background:#eee;}
+button {
+  background:#8055ed;
+  color:white;
+  cursor:pointer;
+}
+button:hover {opacity:.8;}
+.player {
+  background:#334155;
+  padding:8px;
+  display:inline-block;
+  margin:5px;
+  border-radius:10px;
+}
+#name {font-size:35px;color:#c4b5fd;}
+#task {font-size:22px;line-height:1.8;}
+</style>
+</head>
+<body>
+
+<h1>🎲 لعبة الديوانية</h1>
+<p>منو عليه الدور؟ وشنو التحدي؟</p>
+
+<div class="box">
+<h3>إضافة اللاعبين</h3>
+<input id="newPlayer" placeholder="اكتب الاسم">
+<button onclick="addPlayer()">إضافة</button>
+<div id="players"></div>
+</div>
+
+<div class="box">
+<h3>اختار نوع اللعبة</h3>
+<button onclick="setMode('commands')">🔥 أوامر</button>
+<button onclick="setMode('confessions')">🤫 اعترافات</button>
+<button onclick="setMode('wrong')">🌀 جاوب خطأ</button>
+</div>
+
+<div class="box">
+<p id="round">الجولة الأولى</p>
+<h1 id="name">؟</h1>
+<p id="task">اضغط ابدأ الجولة!</p>
+<button onclick="nextRound()">🎲 ابدأ الجولة</button>
+<button onclick="resetGame()">إعادة اللعبة</button>
+</div>
+
+<script>
+let players = ["محمد","خالد"];
+let mode = "commands";
+let round = 0;
+let previous = "";
+let used = [];
+
+const games = {
+commands: [
+"قلد مذيع أخبار لمدة 30 ثانية",
+"غن أغنية بصوت عالي",
+"امدح الشخص اللي يمك",
+"قلد شخصية مشهورة",
+"تكلم بلهجة مصرية لمدة دقيقة",
+"سو إعلان عن كوب الماء",
+"ارقص لمدة 15 ثانية",
+"قل خمسة أسماء دول خلال خمس ثواني",
+"مثل أنك مذيع مباراة",
+"قل جملة صعبة ثلاث مرات",
+"سو مقابلة مع محمد",
+"تكلم مثل الروبوت",
+"امش كأنك عارض أزياء",
+"قلد صوت حيوان",
+"احك قصة مضحكة"
+],
+confessions: [
+شنو أكثر موقف محرج صار لك؟".replace(/^/,""),
+"من أكثر شخص يضحكك؟",
+"شنو أكبر حلم عندك؟",
+"شنو أغرب أكلة جربتها؟",
+"منو أكثر واحد تثق فيه؟",
+"شنو أكثر شيء تخاف منه؟",
+"لو تسافر وين تروح؟",
+"شنو أكثر موقف ما تنساه؟",
+"منو أكثر واحد بالمجموعة عصبي؟",
+"شنو الشيء اللي تتمنى تتعلمه؟"
+],
+wrong: [
+"جاوب خطأ: شنو عاصمة الكويت؟",
+"جاوب خطأ: كم يوم بالأسبوع؟",
+"جاوب خطأ: شنو لون السماء؟",
+"جاوب خطأ: كم عين عند الإنسان؟",
+"جاوب خطأ: وين تعيش الأسماك؟",
+"جاوب خطأ: شنو نستخدم للكتابة؟",
+"جاوب خطأ: شنو عاصمة فرنسا؟",
+"جاوب خطأ: كم شهر بالسنة؟",
+"جاوب خطأ: شنو لون الموز؟",
+"جاوب خطأ: الشمس تطلع متى؟"
+]
+};
+
+function renderPlayers() {
+  document.getElementById("players").innerHTML =
+    players.map((p,i) =>
+      `<span class="player">${p}
+      <button onclick="removePlayer(${i})">×</button></span>`
+    ).join("");
+}
+
+function addPlayer() {
+  let input = document.getElementById("newPlayer");
+  let name = input.value.trim();
+  if(!name) return;
+  if(players.includes(name)) return alert("الاسم موجود!");
+  players.push(name);
+  input.value = "";
+  renderPlayers();
+}
+
+function removePlayer(i) {
+  if(players.length <= 1) return;
+  players.splice(i,1);
+  renderPlayers();
+}
+
+function setMode(m) {
+  mode = m;
+  used = [];
+  alert("تم اختيار نوع اللعبة!");
+}
+
+function nextRound() {
+  if(players.length === 0) return;
+
+  let choices = players.filter(p => p !== previous);
+  if(choices.length === 0) choices = players;
+
+  let player = choices[Math.floor(Math.random()*choices.length)];
+  let list = games[mode];
+
+  if(used.length === list.length) used = [];
+
+  let remaining = list.filter(x => !used.includes(x));
+  let task = remaining[Math.floor(Math.random()*remaining.length)];
+
+  used.push(task);
+  previous = player;
+  round++;
+
+  document.getElementById("name").textContent = player;
+  document.getElementById("task").textContent = task;
+  document.getElementById("round").textContent = "الجولة رقم " + round;
+}
+
+function resetGame() {
+  round = 0;
+  previous = "";
+  used = [];
+  document.getElementById("name").textContent = "؟";
+  document.getElementById("task").textContent = "اضغط ابدأ الجولة!";
+  document.getElementById("round").textContent = "الجولة الأولى";
+}
+
+renderPlayers();
+</script>
+</body>
+</html>
